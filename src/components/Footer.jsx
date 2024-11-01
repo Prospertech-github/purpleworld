@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import Logo from "../assets/purpleworldLogo.png";
 import styles from "./Footer.module.css";
 
-export default function Footer() {
+export default function Footer({register}) {
+  
   return (
     <footer>
       <div className={styles.footer}>
@@ -17,8 +18,8 @@ export default function Footer() {
           </p>
           <ul>
             <li>Shop D 133, ElRufai Plaza, Wuse Market, Wuse, Abuja.</li>
-            <li>Phone: 08188938913</li>
-            <li>support@ninolynks.com</li>
+            <li>Phone: +61 893891393</li>
+            <li>support@purpleworld.shop</li>
           </ul>
         </div>
         <div>
@@ -52,5 +53,7 @@ export default function Footer() {
         <p>Copyright &copy; 2024</p>
       </div>
     </footer>
+
+    
   );
 }
