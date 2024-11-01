@@ -3,17 +3,24 @@ import DarkBG from '../../components/DarkBG'
 import Footer from '../../components/Footer'
 import ProductCard from '../../components/ProductCard'
 import styles from './Shop.module.css' 
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
+import { ProductsContext } from '../../contexts/ProductsContext'
 
 export default function Shop() {
-  const [products, setProducts] = useState([])
+  // const [products, setProducts] = useState([])
   const [groceries, setGroceries] = useState(false)
   const [skinCare, setSkinCare] = useState([])
-  useEffect(()=>{
-    axios.get('http://localhost:8080/api/v1/products?limit=20').then(response => {setProducts(response.data.data.products)})
-    // fetch('')
-  },[])
+
+  const {products} = useContext(ProductsContext)
+  // useEffect(()=>{
+  //   axios.get('http://localhost:8080/api/v1/products?limit=20').then(response => {
+  //     console.log(response.data.data.products)
+  //     setProducts(response.data.data.products)
+  //   })
+  //   // fetch('')
+  // },[])
 
   useEffect(()=>{
     axios.get()
@@ -31,7 +38,9 @@ export default function Shop() {
           <section className={styles.productArea}>
             {products.map((product)=>{
               return(
-                <ProductCard productName={product.title} category={product.category.title} price={`$${product.price}`} imgUrl={product.icon} key={products.id}/>
+                <Link to={`/shop/${product.id}`}> 
+                  <ProductCard productName={product.title} category={product.category.title} price={`${product.price}`} imgUrl={product.icon} key={product.id}/>
+                </Link>
               )
             })}
 
