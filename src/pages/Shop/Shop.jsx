@@ -9,18 +9,10 @@ import { Link } from 'react-router-dom'
 import { ProductsContext } from '../../contexts/ProductsContext'
 
 export default function Shop() {
-  // const [products, setProducts] = useState([])
   const [groceries, setGroceries] = useState(false)
   const [skinCare, setSkinCare] = useState([])
 
   const {products} = useContext(ProductsContext)
-  // useEffect(()=>{
-  //   axios.get('http://localhost:8080/api/v1/products?limit=20').then(response => {
-  //     console.log(response.data.data.products)
-  //     setProducts(response.data.data.products)
-  //   })
-  //   // fetch('')
-  // },[])
 
   useEffect(()=>{
     axios.get()
@@ -38,15 +30,11 @@ export default function Shop() {
           <section className={styles.productArea}>
             {products.map((product)=>{
               return(
-                <Link to={`/shop/${product.id}`}> 
-                  <ProductCard productName={product.title} category={product.category.title} price={`${product.price}`} imgUrl={product.icon} key={product.id}/>
+                <Link to={`/shop/${product.id}`} key={product.id}> 
+                  <ProductCard productName={product.title} category={product.category.title} price={`${product.price}`} imgUrl={product.icon} />
                 </Link>
               )
             })}
-
-            {/* {
-              groceries && 
-            } */}
 
           </section>
         <Footer />

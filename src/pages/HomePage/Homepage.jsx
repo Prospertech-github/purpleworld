@@ -1,21 +1,12 @@
 import React, { useState, useEffect, useLayoutEffect } from "react";
-import axios from "axios";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
-import styles from "./Homepage.module.css";
-import BabyMeal from "../../assets/nutribom.png";
-import B5school from "../../assets/back2school.png";
-import Nivea from "../../assets/nivea.png";
-import Utensils from "../../assets/utensils.png";
-import Ceralac from "../../assets/ceralac.png";
-import Coke from "../../assets/drink.png";
-import Diaper from "../../assets/smileBaby.png";
-import Coffee from "../../assets/coffee.png";
-import SectionTopHeader from "../../components/SectionTopHeader";
 import ProductCard from "../../components/ProductCard";
-import Kellogs from "../../assets/kellogs.png";
 import SalesComponent from "../../components/SalesComponent";
 import Newsletter from "../../components/Newsletter";
+import styles from "./Homepage.module.css";
+import { Link } from "react-router-dom";
+import axios from "axios";
 
 export default function Homepage() {
   const [displayProducts, setDisplayProducts] = useState(null);
@@ -59,7 +50,7 @@ export default function Homepage() {
               <div>
                 <h3>{displayProducts[6].title}</h3>
                 <p> {displayProducts[6].category.title} </p>
-                <a href="3">Shop Now!</a>
+                <Link to={`/shop/${displayProducts[8].id}`}>Shop Now!</Link>
               </div>
             </div>
 
@@ -69,7 +60,7 @@ export default function Homepage() {
                 <div>
                   <h3>{displayProducts[8].title}</h3>
                   <p> {displayProducts[8].category.title} </p>
-                  <a href="3">Shop Now!</a>
+                  <Link to={`/shop/${displayProducts[8].id}`}> Shop Now! </Link>
                 </div>
               </div>
 
@@ -78,7 +69,7 @@ export default function Homepage() {
                 <div>
                   <h3>{displayProducts[5].title}</h3>
                   <p> {displayProducts[5].category.title} </p>
-                  <a href="3">Shop Now!</a>
+                  <Link to={`/shop/${displayProducts[5].id}`}>Shop Now!</Link>
                 </div>
               </div>
             </div>
@@ -88,7 +79,7 @@ export default function Homepage() {
               <div>
                 <h3>{displayProducts[9].title}</h3>
                 <p> {displayProducts[9].category.title} </p>
-                <a href="3">Shop Now!</a>
+                <Link tto={`/shop/${displayProducts[9].id}`}>Shop Now!</Link>
               </div>
             </div>
           </div>
@@ -105,6 +96,7 @@ export default function Homepage() {
                 category={product.category.title}
                 imgUrl={product.icon}
                 alt="New"
+                key={product.id}
               />
             )
           })}
@@ -120,6 +112,7 @@ export default function Homepage() {
                 category={product.category.title}
                 imgUrl={product.icon}
                 alt="Hot"
+                key={product.id}
               />
             )
           })}
