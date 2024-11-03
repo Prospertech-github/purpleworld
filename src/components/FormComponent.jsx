@@ -38,6 +38,30 @@ export default function FormComponent() {
           : alert(message);
       });
   }
+  function handleLogin(e) {
+    e.preventDefault();
+    console.log("form sent");
+    axios
+      .post("http://localhost:8080/api/v1/auth/login", {
+        email,
+        password,
+      })
+      .then((response) => {
+        console.log(response.data)
+        if(response.data.status) localStorage.setItem('loggedInUsers', JSON.stringify(response.data.data))
+        navigate('/')
+        
+      })
+      .catch((error) => {
+        console.log(error.response.data.message);
+        const { message } = error.response.data;
+        message.includes("duplicate key error")
+          ? alert(
+              `User already exists \nKindly register with a different email addrress`
+            )
+          : alert(message);
+      });
+  }
 
   return (
     <div className={styles.container}>
@@ -107,7 +131,7 @@ export default function FormComponent() {
         </form>
       ) : (
         <>
-          <form className={styles.regForm}>
+          <form className={styles.regForm} onSubmit={handleLogin}>
             <h3>LOGIN</h3>
 
             <div className={styles.inputControl}>
