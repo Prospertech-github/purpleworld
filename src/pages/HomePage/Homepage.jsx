@@ -9,17 +9,8 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 export default function Homepage() {
-  const [displayProducts, setDisplayProducts] = useState(null);
   const [newProducts, setNewProducts] = useState(null);
   const [popularProducts, setPopularProducts] = useState(null);
-
-  useEffect(() => {
-    axios
-      .get("http://localhost:8080/api/v1/products?limit=10")
-      .then((response) => {
-        setDisplayProducts(response.data.data.products);
-      });
-  }, []);
 
   useEffect(() => {
     axios
@@ -40,7 +31,57 @@ export default function Homepage() {
     <>
       <Navbar />
       <section className={styles.hero}>
-        {displayProducts && (
+        <div className={styles.heroDiv}>
+          <h1>Welcome to PurpleWorld Stores</h1>
+          <h4>...home of quality Groceries and Skin Care </h4>
+          <Link to="/shop"> Shop Now</Link>
+        </div>
+      </section>
+
+      <SalesComponent heading="New Arrivals">
+        {newProducts &&
+          newProducts.map((product) => {
+            return(
+              <Link to={`/shop/${product.id}`} key={product.id}>
+                <ProductCard
+                  productName={product.title}
+                  price={product.price}
+                  category={product.category.title}
+                  imgUrl={product.icon}
+                  alt="New"
+                />
+              
+              </Link>
+            )
+          })}
+      </SalesComponent>
+
+      <SalesComponent heading="Popular">
+      {popularProducts &&
+          popularProducts.map((product) => {
+            return(
+              <Link to={`/shop/${product.id}`} key={product.id}>
+                <ProductCard
+                  productName={product.title}
+                  price={product.price}
+                  category={product.category.title}
+                  imgUrl={product.icon}
+                  alt="Hot"
+                />              
+              </Link>
+            )
+          })}
+      </SalesComponent>
+      <Newsletter />
+      <Footer />
+    </>
+  );
+}
+
+
+
+
+{/* {displayProducts && (
           <div className={styles.gridSection}>
             <Link to={`shop/${displayProducts[6].id}`} className={styles.productCard}>
               <img src={displayProducts[6].icon} alt="" />
@@ -80,47 +121,4 @@ export default function Homepage() {
               </div>
             </Link>
           </div>
-        )}
-      </section>
-
-      <SalesComponent heading="New Arrivals">
-        {newProducts &&
-          newProducts.map((product) => {
-            return(
-              <Link to={`/shop/${product.id}`} key={product.id}>
-                <ProductCard
-                  productName={product.title}
-                  price={product.price}
-                  category={product.category.title}
-                  imgUrl={product.icon}
-                  alt="New"
-                />
-              
-              </Link>
-            )
-          })}
-      </SalesComponent>
-
-      <SalesComponent heading="Popular">
-      {popularProducts &&
-          popularProducts.map((product) => {
-            return(
-              <Link to={`/shop/${product.id}`} key={product.id}>
-                <ProductCard
-                  productName={product.title}
-                  price={product.price}
-                  category={product.category.title}
-                  imgUrl={product.icon}
-                  alt="Hot"
-                />              
-              </Link>
-            )
-          })}
-      </SalesComponent>
-
-      <Newsletter />
-
-      <Footer />
-    </>
-  );
-}
+        )} */}
