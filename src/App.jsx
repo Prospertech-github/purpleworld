@@ -6,6 +6,9 @@ import ProductDetails from "./pages/ProductDetails/ProductDetails";
 import Shop from "./pages/Shop/Shop";
 import ShoppingCart from "./pages/ShoppingCart/ShoppingCart";
 import ProductsLayout from "./components/ProductsLayout";
+import ProductsList from "./components/ProductsList";
+import GroceriesList from "./components/GroceriesList";
+import SkinCareList from "./components/SkinCareList"
 
 function App() {
   return (
@@ -15,7 +18,11 @@ function App() {
           <Route path="/login" element={<Login />} />
 
           <Route element={<ProductsLayout />}>
-              <Route path="/shop" element={<Shop />} />
+              <Route path="/shop" element={<Shop />}> 
+                <Route index element={<ProductsList /> } />
+                <Route path="groceries" element={ <GroceriesList /> } />
+                <Route path="skincare" element={ <SkinCareList /> } />
+              </Route>
               <Route path="shop/:productId" element={<ProductDetails />} />
           </Route>
             

@@ -4,7 +4,7 @@ import { CiHeart } from "react-icons/ci";
 import { HiOutlineShoppingBag } from "react-icons/hi2";
 import { FaBars } from "react-icons/fa";
 import styles from "./Navbar.module.css";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 export default function Navbar() {
   const [user, setUser] = useState();
@@ -34,12 +34,12 @@ export default function Navbar() {
         </div>
 
         <div className={styles.cartDiv}>
-          {user ? `Hey, ${user} 😎`   : <Link to="/login">Login / Register</Link>}
-          <Link to="/shop">Shop</Link>
-          <Link to="/cart">
+          {user ? `Hey, ${user} 😎`   : <NavLink to="/login">Login / Register</NavLink>}
+          <NavLink to="/shop">Shop</NavLink>
+          <NavLink to="/cart">
             {" "}
             <HiOutlineShoppingBag size={42} />{" "}
-          </Link>
+          </NavLink>
           <p className={styles.price}> $0.00</p>
         </div>
       </header>
