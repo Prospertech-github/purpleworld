@@ -9,9 +9,11 @@ import ProductsLayout from "./components/ProductsLayout";
 import ProductsList from "./components/ProductsList";
 import GroceriesList from "./components/GroceriesList";
 import SkinCareList from "./components/SkinCareList"
+import CartProvider from "./contexts/CartProvider";
 
 function App() {
   return (
+    <CartProvider>
       <BrowserRouter>
         <Routes>
           <Route index element={<Homepage />} />
@@ -29,6 +31,7 @@ function App() {
           <Route path="/cart" element={<ShoppingCart />} />
         </Routes>
       </BrowserRouter>
+    </CartProvider>
   );
 }
 

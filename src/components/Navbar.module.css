@@ -38,6 +38,8 @@ header{
 .cartDiv > a{
     text-transform: uppercase;
     font-weight: bold;
+    display: flex;
+    align-items: center;
 }
 .categoryDiv{
     background: #9966CB;
