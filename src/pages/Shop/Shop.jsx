@@ -2,7 +2,7 @@ import Navbar from "../../components/Navbar";
 import DarkBG from "../../components/DarkBG";
 import Footer from "../../components/Footer";
 import styles from "./Shop.module.css";
-import { Link, NavLink, Outlet, useLocation} from "react-router-dom";
+import { Link, Outlet, useLocation} from "react-router-dom";
 import { useEffect, useState } from "react";
 
 export default function Shop() {
@@ -18,9 +18,9 @@ export default function Shop() {
       <Navbar />
       <DarkBG text="Shop">
         <div>
-          <NavLink to="/shop/groceries" className={path === 'groceries' ? styles.active : ''}>Groceries</NavLink>
+          <Link to="/shop/groceries" className={path === 'groceries' ? styles.active : ''}>Groceries</Link>
           <p> &#62; </p>
-          <NavLink to="/shop/skincare" className={path === 'skincare' ? styles.active : ''}>Skin Care</NavLink>
+          <Link to="/shop/skincare" className={path === 'skincare' ? styles.active : ''}>Skin Care</Link>
         </div>
       </DarkBG>
 

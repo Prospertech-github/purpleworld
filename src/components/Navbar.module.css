@@ -61,8 +61,6 @@ header{
     gap: 5rem;
     flex: 2;
 }
-
-
 header a:global(.active){
     color: #551a8b;
 }

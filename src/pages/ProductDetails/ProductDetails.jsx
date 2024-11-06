@@ -7,7 +7,6 @@ import ProductCard from "../../components/ProductCard";
 import { ProductsContext } from "../../contexts/ProductsContext";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
-import CartProvider from "../../contexts/CartProvider";
 import { CartContext } from "../../contexts/CartContext";
 
 export default function ProductDetails() {
@@ -27,9 +26,7 @@ export default function ProductDetails() {
   }, []);
 
   function addToCart() {
-    console.log("Clicked add to cart");
     setCartItems([...cartItems, product]);
-    console.log(cartItems);
   }
 
   return (

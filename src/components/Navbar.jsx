@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
 import Logo from "../assets/purpleworldLogo.png";
-import { CiHeart } from "react-icons/ci";
 import { HiOutlineShoppingBag } from "react-icons/hi2";
 import { FaBars } from "react-icons/fa";
 import styles from "./Navbar.module.css";
