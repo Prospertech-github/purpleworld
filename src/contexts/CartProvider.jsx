@@ -4,7 +4,7 @@ import { CartContext } from './CartContext'
 export default function CartProvider({children}) {
     const [cartItems, setCartItems] = useState([]);
   return (
-    <CartContext.Provider>
+    <CartContext.Provider value={{cartItems, setCartItems}}>
         {children}
     </CartContext.Provider>
   )
