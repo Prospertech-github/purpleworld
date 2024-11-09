@@ -54,17 +54,7 @@ input:focus{
     align-items: center;
     gap: 2rem;
 }
-/* .categoryDropDown{
-    display: flex;
-    align-items: center;
-    gap: 4rem;
-    width: 25%;
-}
-.categoryDiv ul{
-    display: flex;
-    gap: 5rem;
-    flex: 2;
-} */
+
 header a:global(.active){
     color: #551a8b;
 }
