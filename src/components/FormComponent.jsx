@@ -14,7 +14,6 @@ export default function FormComponent() {
 
   function handleSignUp(e) {
     e.preventDefault();
-    console.log("form sent");
     axios
       .post("http://localhost:8080/api/v1/auth/register", {
         email,
@@ -22,13 +21,11 @@ export default function FormComponent() {
         fullName,
       })
       .then((response) => {
-        console.log(response.data)
         if(response.data.status) localStorage.setItem('registeredUsers', JSON.stringify(response.data.data))
         navigate('/')
         
       })
       .catch((error) => {
-        console.log(error.response.data.message);
         const { message } = error.response.data;
         message.includes("duplicate key error")
           ? alert(
@@ -39,20 +36,17 @@ export default function FormComponent() {
   }
   function handleLogin(e) {
     e.preventDefault();
-    console.log("form sent");
     axios
       .post("http://localhost:8080/api/v1/auth/login", {
         email,
         password,
       })
       .then((response) => {
-        console.log(response.data)
         if(response.data.status) localStorage.setItem('loggedInUsers', JSON.stringify(response.data.data))
         navigate('/')
         
       })
       .catch((error) => {
-        console.log(error.response.data.message);
         const { message } = error.response.data;
         message.includes("duplicate key error")
           ? alert(
