@@ -22,11 +22,24 @@ header{
     justify-content: space-between;
     align-items: center;
     gap: 4rem;
-    font-weight: 500;
+    font-weight: 600;
+    font-size: 2rem;
+    text-transform: uppercase;
+    color: #000;
 }
-.cartDiv a{
+.cartDiv > a{
+    color: #000;
+}
+
+.cartDiv > p{
+    color: #000;
+    font-size: 2rem;
+}
+.cartDiv > a{
     text-transform: uppercase;
     font-weight: bold;
+    display: flex;
+    align-items: center;
 }
 .categoryDiv{
     background: #9966CB;
@@ -47,4 +60,7 @@ header{
     display: flex;
     gap: 5rem;
     flex: 2;
+}
+header a:global(.active){
+    color: #551a8b;
 }
