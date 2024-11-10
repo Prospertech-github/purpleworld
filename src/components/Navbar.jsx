@@ -58,7 +58,7 @@ export default function Navbar() {
           <NavLink to="/shop">Shop</NavLink>
           <NavLink to="/cart">
             {" "}
-            <HiOutlineShoppingBag size={42} />({cartItems.length})
+            <HiOutlineShoppingBag size={42} />({cartItems && cartItems.length})
           </NavLink>
           {user && (
             <p className={styles.price} onClick={handleLogOut}>

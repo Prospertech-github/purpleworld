@@ -26,7 +26,9 @@ export default function ProductDetails() {
   }, []);
 
   function addToCart() {
-    setCartItems([...cartItems, product]);
+    let updatedCartItems = [...cartItems, {...product, quantity: 1, subtotal: product.price}]
+    setCartItems(updatedCartItems);
+    localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
   }
 
   return (

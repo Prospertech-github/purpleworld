@@ -4,15 +4,18 @@ import Process from "../../components/Process/Process";
 import Footer from "../../components/Footer";
 import EmptyCart from "./EmptyCart";
 import FilledCart from "./FilledCart";
+import { useContext } from "react";
+import { CartContext } from "../../contexts/CartContext";
 
 const ShoppingCart = () => {
   const [isCartEmpty, setIsCartEmpty] = useState(true);
+  const {cartItems} = useContext(CartContext)
 
   return (
     <main>
       <Navbar />
       <Process />
-      {isCartEmpty ? <EmptyCart /> : <FilledCart />}
+      {!cartItems ? <EmptyCart /> : <FilledCart />}
       <Footer />
     </main>
   );
