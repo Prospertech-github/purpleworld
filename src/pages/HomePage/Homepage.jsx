@@ -1,157 +1,78 @@
-import React from "react";
+import React, { useState, useEffect, useLayoutEffect } from "react";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
-import styles from "./Homepage.module.css";
-import BabyMeal from "../../assets/nutribom.png";
-import B2school from "../../assets/back2school.png";
-import Nivea from "../../assets/nivea.png";
-import Utensils from "../../assets/utensils.png";
-import Ceralac from "../../assets/ceralac.png";
-import Coke from "../../assets/drink.png";
-import Diaper from "../../assets/smileBaby.png";
-import Coffee from "../../assets/coffee.png";
-import SectionTopHeader from "../../components/SectionTopHeader";
 import ProductCard from "../../components/ProductCard";
-import Kellogs from "../../assets/kellogs.png";
 import SalesComponent from "../../components/SalesComponent";
 import Newsletter from "../../components/Newsletter";
+import styles from "./Homepage.module.css";
+import { Link } from "react-router-dom";
+import axios from "axios";
 
 export default function Homepage() {
+  const [newProducts, setNewProducts] = useState(null);
+  const [popularProducts, setPopularProducts] = useState(null);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8080/api/v1/products?category=67142bc188bcdf75ae067119&limit=5")
+      .then((response) => {
+        setNewProducts(response.data.data.products);
+      });
+  }, []);
+  useEffect(() => {
+    axios
+      .get("http://localhost:8080/api/v1/products?category=67142bd488bcdf75ae06711a&limit=5")
+      .then((response) => {
+        setPopularProducts(response.data.data.products);
+      });
+  }, []);
+
   return (
     <>
       <Navbar />
       <section className={styles.hero}>
-        <div className={styles.gridSection}>
-          <div className={styles.productCard}>
-            <h3>Baby Cereal</h3>
-            <p> Drinks </p>
-            <a href="3">Shop Now!</a>
-          </div>
-
-          <div>
-            <div className={`${styles.productCard} ${styles.small}`}>
-              <h3>Baby Cereal</h3>
-              <p> Drinks </p>
-              <a href="3">Shop Now!</a>
-            </div>
-            <div className={`${styles.productCard} ${styles.small}`}>
-              <h3>Baby Cereal</h3>
-              <p> Drinks </p>
-              <a href="3">Shop Now!</a>
-            </div>
-          </div>
-
-          <div className={`${styles.productCard} ${styles.long}`}>
-            <h3>Baby Cereal</h3>
-            <p> Drinks </p>
-            <a href="3">Shop Now!</a>
-          </div>
+        <div className={styles.heroDiv}>
+          <h1>Welcome to PurpleWorld Stores</h1>
+          <h4>...home of quality Groceries and Skin Care </h4>
+          <Link to="/shop"> Shop Now</Link>
         </div>
       </section>
 
-      <section className={styles.hotSection}>
-        <SectionTopHeader heading="New Arrivals">
-          <p className={styles.active}>Groceries</p>
-          <p>Drinks</p>
-          <p>Baby Food </p>
-          <p>Skin care</p>
-          <p>Home & Kitchen</p>
-        </SectionTopHeader>
-
-        <div className={styles.bannerSection}>
-          <div>
-            <div>
-              <img src={Ceralac} alt="Ceralac" />
-            </div>
-            <div>
-              <img src={Diaper} alt="Diaper wears" />
-            </div>
-          </div>
-          <div>
-            <div>
-              <img src={Coke} alt="Coca Cola" />
-            </div>
-            <div>
-              <img src={Coffee} alt="Coffee drink" />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <SalesComponent heading="Best of the week">
-        <ProductCard
-          productName="Kellogs Cereal"
-          price="$5.84"
-          category="cereals"
-          imgUrl={Kellogs}
-          alt="Hot"
-        />
-        <ProductCard
-          productName="Kellogs Cereal"
-          price="$5.84"
-          category="cereals"
-          imgUrl={Kellogs}
-          alt="Hot"
-        />
-        <ProductCard
-          productName="Kellogs Cereal"
-          price="$5.84"
-          category="cereals"
-          imgUrl={Kellogs}
-        />
-        <ProductCard
-          productName="Kellogs Cereal"
-          price="$5.84"
-          category="cereals"
-          imgUrl={Kellogs}
-          alt="Hot"
-        />
-        <ProductCard
-          productName="Kellogs Cereal"
-          price="$5.84"
-          category="cereals"
-          imgUrl={Kellogs}
-        />
+      <SalesComponent heading="New Arrivals">
+        {newProducts &&
+          newProducts.map((product) => {
+            return(
+              <Link to={`/shop/${product.id}`} key={product.id}>
+                <ProductCard
+                  productName={product.title}
+                  price={product.price}
+                  category={product.category.title}
+                  imgUrl={product.icon}
+                  alt="New"
+                />
+              
+              </Link>
+            )
+          })}
       </SalesComponent>
 
-      <SalesComponent heading="Popular In Category">
-        <ProductCard
-          productName="Kellogs Cereal"
-          price="$5.84"
-          category="cereals"
-          imgUrl={Kellogs}
-          alt="Hot"
-        />
-        <ProductCard
-          productName="Kellogs Cereal"
-          price="$5.84"
-          category="cereals"
-          imgUrl={Kellogs}
-          alt="Hot"
-        />
-        <ProductCard
-          productName="Kellogs Cereal"
-          price="$5.84"
-          category="cereals"
-          imgUrl={Kellogs}
-        />
-        <ProductCard
-          productName="Kellogs Cereal"
-          price="$5.84"
-          category="cereals"
-          imgUrl={Kellogs}
-          alt="Hot"
-        />
-        <ProductCard
-          productName="Kellogs Cereal"
-          price="$5.84"
-          category="cereals"
-          imgUrl={Kellogs}
-        />
+      <SalesComponent heading="Popular">
+      {popularProducts &&
+          popularProducts.map((product) => {
+            return(
+              <Link to={`/shop/${product.id}`} key={product.id}>
+                <ProductCard
+                  productName={product.title}
+                  price={product.price}
+                  category={product.category.title}
+                  imgUrl={product.icon}
+                  alt="Hot"
+                />              
+              </Link>
+            )
+          })}
       </SalesComponent>
-
       <Newsletter />
-
       <Footer />
     </>
   );

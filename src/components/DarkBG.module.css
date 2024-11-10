@@ -12,7 +12,25 @@
     font-size: 5rem;
     font-weight: 400;
 }
-.darkBg p, .darkBg a{
+.darkBg p, .darkBg  a{
     text-transform: uppercase;
     font-weight: 300;
+    color: #fff;
+}
+.darkBg a:active{
+    color: var(--purple);
+    font-weight: 600;
+}
+.darkBg > div{
+    display: flex;
+    gap: 2rem;
+}
+
+@media screen and (max-width: 800px) {
+    .darkBg h2{
+        font-size: 3.5rem;
+    }
+    .darkBg p, .darkBg a{
+        font-size: 1.5rem;
+    }
 }

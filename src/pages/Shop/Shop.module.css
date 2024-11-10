@@ -1,0 +1,12 @@
+.productArea{
+    padding: 10rem 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5rem;
+    justify-content: center;
+}
+
+a.active{
+    color: var(--purple);
+    font-weight: 800;
+}
