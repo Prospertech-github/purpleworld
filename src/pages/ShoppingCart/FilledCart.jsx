@@ -1,11 +1,10 @@
 import React, { useContext, useState } from "react";
-import { cartItemsData, cartTotals } from "../../components/mock";
 import filled from "./filledcart.module.css";
 import { CartContext } from "../../contexts/CartContext";
 import { Link } from "react-router-dom";
+import PaystackPop from '@paystack/inline-js';
 
 const FilledCart = () => {
-  // const [cartItems, setCartItems] = useState(cartItemsData);
   const [couponCode, setCouponCode] = useState("");
   const {cartItems, setCartItems} = useContext(CartContext);
 
@@ -31,6 +30,14 @@ const FilledCart = () => {
   const clearCart = () =>{
     setCartItems([])
     localStorage.removeItem('cartItems');
+  }
+
+  const checkout = (e) =>{
+    e.preventDefault();
+    const paystack = new PaystackPop()
+    paystack.newTransaction({
+      key: "pk_test_d6e4e8e4a9f1cb8fc38f61822afefec6b438e41a"
+    })
   }
   const subtotal = cartItems.reduce((acc, item) => acc + Number(item.subtotal), 0);
 
@@ -77,7 +84,7 @@ const FilledCart = () => {
       <CartTotals
         subtotal={subtotal}
         total={subtotal}
-        onCheckout={handleProceedToCheckout}
+        onCheckout={checkout}
       />
     </div>
   );
