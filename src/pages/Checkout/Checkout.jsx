@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import mockOrderData, {
+import React, { useContext, useState } from "react";
+import {
   countries,
   Housing,
   statesInNigeria,
@@ -10,6 +10,9 @@ import Process from "../../components/Process/Process";
 import Footer from "../../components/Footer";
 import checkout from "./Checkout.module.css";
 import design from "../../assets/design.png";
+import { CartContext } from "../../contexts/CartContext";
+import PaystackPop from '@paystack/inline-js';
+
 
 const Checkout = () => {
   const [formData, setFormData] = useState({
@@ -42,7 +45,7 @@ const Checkout = () => {
   });
 
   const [orderData, setOrderData] = useState(null);
-  const [paymentMethod, setPaymentMethod] = useState("bank");
+  // const [paymentMethod, setPaymentMethod] = useState("bank");
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -50,6 +53,7 @@ const Checkout = () => {
       ...prevData,
       [name]: type === "checkbox" ? checked : value,
     }));
+    console.log(formData);
   };
 
 
@@ -62,25 +66,39 @@ const Checkout = () => {
   };
 
   const validateForm = (data) => {
-    const requiredFields = ["firstName", "lastName", "country", "houseType", "streetAddress", "city", "state", "phone", "email"];
+    const requiredFields = ["firstName", "lastName", "country", "streetAddress", "city", "state", "phone", "email"];
+    console.log(requiredFields.every((field) => data[field]));
     return requiredFields.every((field) => data[field]);
   };
 
-  const handlePaymentChange = (e) => {
-    setPaymentMethod(e.target.value);
-  };
+  // const handlePaymentChange = (e) => {
+  //   setPaymentMethod(e.target.value);
+  // };
 
   const handleOrder = (e) => {
     e.preventDefault();
-
     const dataToValidate = formData.shipToDifferentAddress ? shippingData : formData;
+    console.log(dataToValidate)
     if (validateForm(dataToValidate)) {
+      const paystack = new PaystackPop()
+      paystack.newTransaction({
+        key: "pk_test_d6e4e8e4a9f1cb8fc38f61822afefec6b438e41a",
+        amount: cartTotal * 100,
+        email: formData.email,
+        firstName: formData.firstName,
+        lastName: formData.lastName
+
+      })
       alert("Order placed successfully!");
       console.log("Order Data:", dataToValidate, paymentMethod);
     } else {
       alert("Please fill out all required fields.");
     }
   };
+  
+  const {cartItems} = useContext(CartContext);
+  const cartTotal = cartItems.reduce((acc, item) => acc + Number(item.subtotal), 0);
+
 
   return (
     <main>
@@ -90,11 +108,6 @@ const Checkout = () => {
         <div className={checkout.checkoutLinks1}>
           <p>Returning customer?</p>
           <Link to="/login">Click here to login</Link>
-        </div>
-
-        <div className={checkout.checkoutLinks2}>
-          <p>Have a coupon?</p>
-          <Link to="/coupon">Click here to enter your code</Link>
         </div>
 
         <section className={checkout.checkoutSection}>
@@ -399,60 +412,34 @@ const Checkout = () => {
               </div>
 
               <div className={checkout.orderDetails}>
-                {mockOrderData.products.map((product, index) => (
+                {cartItems.map((product, index) => (
                   <div key={index} className={checkout.orderRow}>
                     <p className={checkout.productName}>
-                      {product.name} x {product.quantity}
+                      {product.title} x {product.quantity}
                     </p>
                     <p className={checkout.productPrice}>
-                      ₦{product.price.toLocaleString()}
+                      ${product.subtotal.toLocaleString()}
                     </p>
                   </div>
                 ))}
                 <div className={checkout.orderRow}>
-                  <p className={checkout.subtotalText}>Subtotal</p>
-                  <p className={checkout.subtotalPrice}>
-                    ₦{mockOrderData.subtotal.toLocaleString()}
-                  </p>
-                </div>
-                <div className={checkout.orderRow}>
                   <p className={checkout.total}>Total</p>
                   <p className={checkout.totalPrice}>
-                    ₦{mockOrderData.total.toLocaleString()}
+                    ${cartTotal.toLocaleString()}
                   </p>
                 </div>
               </div>
             </div>
 
             <div className={checkout.paymentMethods}>
-              <label>
-                <input
-                  type="radio"
-                  name="paymentMethod"
-                  value="bank"
-                  checked={paymentMethod === "bank"}
-                  onChange={handlePaymentChange}
-                />
-                Direct bank transfer
-              </label>
-              {paymentMethod === "bank" && (
-                <p className={checkout.paymentInfo}>
-                  Make your payment directly into our bank account. Please use
-                  your Order ID as the payment reference. Your order will not be
-                  shipped until the funds have cleared in our account.
-                </p>
-              )}
-
-              <label>
+              {/* <label>
                 <input
                   type="radio"
                   name="paymentMethod"
                   value="cash"
-                  checked={paymentMethod === "cash"}
-                  onChange={handlePaymentChange}
                 />
                 Cash on delivery
-              </label>
+              </label> */}
             </div>
 
             <p className={checkout.privacyNotice}>

@@ -2,7 +2,6 @@ import React, { useContext, useState } from "react";
 import filled from "./filledcart.module.css";
 import { CartContext } from "../../contexts/CartContext";
 import { Link } from "react-router-dom";
-import PaystackPop from '@paystack/inline-js';
 
 const FilledCart = () => {
   const [couponCode, setCouponCode] = useState("");
@@ -14,30 +13,18 @@ const FilledCart = () => {
         const updatedSubtotal = item.price * newQuantity;
         return { ...item, quantity: newQuantity, subtotal: updatedSubtotal };
       }
-      return item;
+      return item
     });
-    setCartItems(updatedItems);
+    setCartItems(() => updatedItems);
   };
 
   const handleApplyCoupon = () => {
     console.log("Coupon applied:", couponCode);
   };
 
-  const handleProceedToCheckout = () => {
-    console.log("Proceeding to checkout...");
-  };
-
   const clearCart = () =>{
     setCartItems([])
     localStorage.removeItem('cartItems');
-  }
-
-  const checkout = (e) =>{
-    e.preventDefault();
-    const paystack = new PaystackPop()
-    paystack.newTransaction({
-      key: "pk_test_d6e4e8e4a9f1cb8fc38f61822afefec6b438e41a"
-    })
   }
   const subtotal = cartItems.reduce((acc, item) => acc + Number(item.subtotal), 0);
 
@@ -82,9 +69,7 @@ const FilledCart = () => {
 
       {/* Cart Totals */}
       <CartTotals
-        subtotal={subtotal}
         total={subtotal}
-        onCheckout={checkout}
       />
     </div>
   );
@@ -119,19 +104,16 @@ const CartItem = ({ item, handleQuantityChange }) => {
   );
 };
 
-const CartTotals = ({ subtotal, total, onCheckout }) => {
+const CartTotals = ({total}) => {
   return (
     <div className={filled.cartTotals}>
       <h3>Cart Totals</h3>
       <div>
-        <p className={filled.subT}>
-          Subtotal: <span>₦{subtotal.toFixed(2)}</span>
-        </p>
         <p className={filled.T}>
-          Total: <span>₦{Number(total.toFixed(2)).toLocaleString()}</span>
+          Total: <span>${Number(total.toFixed(2)).toLocaleString()}</span>
         </p>
       </div>
-      <button onClick={onCheckout}>PROCEED TO CHECKOUT</button>
+      <Link to='/checkout'>PROCEED TO CHECKOUT</Link>
     </div>
   );
 };
