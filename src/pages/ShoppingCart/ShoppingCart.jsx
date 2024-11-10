@@ -15,7 +15,7 @@ const ShoppingCart = () => {
     <main>
       <Navbar />
       <Process />
-      {!cartItems ? <EmptyCart /> : <FilledCart />}
+      {cartItems.length < 1 ? <EmptyCart /> : <FilledCart />}
       <Footer />
     </main>
   );

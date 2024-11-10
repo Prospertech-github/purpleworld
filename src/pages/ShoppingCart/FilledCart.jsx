@@ -28,6 +28,10 @@ const FilledCart = () => {
     console.log("Proceeding to checkout...");
   };
 
+  const clearCart = () =>{
+    setCartItems([])
+    localStorage.removeItem('cartItems');
+  }
   const subtotal = cartItems.reduce((acc, item) => acc + Number(item.subtotal), 0);
 
   return (
@@ -64,7 +68,7 @@ const FilledCart = () => {
             />
             <button onClick={handleApplyCoupon}>APPLY COUPON</button>
           </div>
-            <button className={filled.clearCart}>CLEAR CART</button>
+            <button className={filled.clearCart} onClick={clearCart}>CLEAR CART</button>
           <Link to='/shop' className={filled.update}>BACK TO SHOP</Link>
         </div>
       </div>
@@ -104,7 +108,6 @@ const CartItem = ({ item, handleQuantityChange }) => {
         </button>
       </td>
       <td className={filled.subtotal}>${item.quantity * item.price}</td>
-      <p>{typeof item.subtotal}</p>
     </tr>
   );
 };
