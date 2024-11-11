@@ -67,7 +67,7 @@ header a:global(.active){
     header{
         padding: 3rem 1rem;
         position: relative;
-        z-index: 20;
+        z-index: 2000;
     }
     .logoCtn{
         width: 150px;

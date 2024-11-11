@@ -1,5 +1,3 @@
-import pringles from "../assets/pringles.png";
-
 export const cartItemsData = [
     {
       id: 1,
