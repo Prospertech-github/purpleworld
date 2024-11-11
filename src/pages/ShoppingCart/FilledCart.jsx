@@ -85,7 +85,7 @@ const CartItem = ({ item, handleQuantityChange }) => {
           <span>{item.title}</span>
         </div>
       </td>
-      <td className={filled.price}>${item.price}</td>
+      <td className={filled.price}>₦{item.price}</td>
       <td className={filled.quantity}>
         <button
           onClick={() => handleQuantityChange(item.id, item.quantity - 1)}
@@ -99,7 +99,7 @@ const CartItem = ({ item, handleQuantityChange }) => {
           +
         </button>
       </td>
-      <td className={filled.subtotal}>${item.quantity * item.price}</td>
+      <td className={filled.subtotal}>₦{item.quantity * item.price}</td>
     </tr>
   );
 };
@@ -110,7 +110,7 @@ const CartTotals = ({total}) => {
       <h3>Cart Totals</h3>
       <div>
         <p className={filled.T}>
-          Total: <span>${Number(total.toFixed(2)).toLocaleString()}</span>
+          Total: <span>₦{Number(total.toFixed(2)).toLocaleString()}</span>
         </p>
       </div>
       <Link to='/checkout'>PROCEED TO CHECKOUT</Link>
