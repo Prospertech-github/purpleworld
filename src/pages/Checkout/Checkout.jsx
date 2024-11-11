@@ -53,7 +53,6 @@ const Checkout = () => {
       ...prevData,
       [name]: type === "checkbox" ? checked : value,
     }));
-    console.log(formData);
   };
 
 
@@ -78,7 +77,8 @@ const Checkout = () => {
   const handleOrder = (e) => {
     e.preventDefault();
     const dataToValidate = formData.shipToDifferentAddress ? shippingData : formData;
-    console.log(dataToValidate)
+    console.log(typeof paystackKey)
+
     if (validateForm(dataToValidate)) {
       const paystack = new PaystackPop()
       paystack.newTransaction({
@@ -86,11 +86,15 @@ const Checkout = () => {
         amount: cartTotal * 100,
         email: formData.email,
         firstName: formData.firstName,
-        lastName: formData.lastName
-
+        lastName: formData.lastName,
+        onSuccess(transaction){
+          let message = `Payment Completed 🥰! Transaction ID: ${transaction.reference}`
+          alert(message)
+        },
+        onCancel(){
+          alert('OOPS 😔!! Transaction Canceled')
+        }
       })
-      alert("Order placed successfully!");
-      console.log("Order Data:", dataToValidate, paymentMethod);
     } else {
       alert("Please fill out all required fields.");
     }
@@ -98,6 +102,7 @@ const Checkout = () => {
   
   const {cartItems} = useContext(CartContext);
   const cartTotal = cartItems.reduce((acc, item) => acc + Number(item.subtotal), 0);
+  const paystackKey = import.meta.env.VITE_PAYSTACK_PUBLIC_KEY;
 
 
   return (
