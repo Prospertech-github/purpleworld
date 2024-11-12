@@ -87,6 +87,7 @@ const FilledCart = () => {
 
       {/* Cart Totals */}
       <CartTotals total={subtotal} />
+      <CartTotals total={subtotal} />
     </div>
   );
 };
