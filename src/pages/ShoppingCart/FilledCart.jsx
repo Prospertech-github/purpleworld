@@ -30,7 +30,12 @@ const FilledCart = () => {
     (acc, item) => acc + Number(item.subtotal),
     0
   );
-
+  const removeItem = (item) =>{
+    console.log(item.id);
+    const updatedCart = cartItems.filter((cartItem) => cartItem.id != item.id)
+    setCartItems(updatedCart)
+    localStorage.setItem('cartItems', JSON.stringify(updatedCart));
+  }
   return (
     <div className={filled.cartPage}>
       <div className={filled.left}>
@@ -51,6 +56,7 @@ const FilledCart = () => {
                   key={item.id}
                   item={item}
                   handleQuantityChange={handleQuantityChange}
+                  removeItem={removeItem}
                 />
               ))}
           </tbody>
@@ -86,11 +92,15 @@ const FilledCart = () => {
   );
 };
 
-const CartItem = ({ item, handleQuantityChange }) => {
+const CartItem = ({ item, handleQuantityChange, removeItem }) => {
   return (
     <tr>
       <td className={filled.productDetails}>
-        <span>x</span>
+        <span
+          onClick={() =>removeItem(item)}
+        >
+          x
+        </span>
         <div>
           <img src={item.icon} alt={item.title} width="50" />
           <span>{item.title}</span>
