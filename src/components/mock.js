@@ -4,10 +4,10 @@ export const cartItemsData = [
       productName: "Pringles Original x12",
       price: 8500,
       quantity: 1,
-      imageUrl: pringles,  
+      // imageUrl: pringles,  
       subtotal: 8500,
     },
-  ];
+  ];     
   
 export const cartTotals = {
     subtotal: 8500,

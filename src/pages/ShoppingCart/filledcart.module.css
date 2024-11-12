@@ -1,6 +1,6 @@
 .cartPage {
   display: flex;
-  padding: 3rem   7rem;
+  padding: 3rem 7rem;
   gap: 3rem;
 }
 
@@ -35,7 +35,7 @@
   align-items: center;
   gap: 4rem;
 }
-.cartTable tbody td.productDetails > div{
+.cartTable tbody td.productDetails > div {
   display: flex;
   gap: 10rem;
   align-items: center;
@@ -125,6 +125,12 @@
   background-color: #6a47a8;
 }
 
+.filledActionButtons {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
 .update {
   color: rgba(0, 0, 0, 0.4);
   color: #fff;
@@ -196,7 +202,7 @@ p.T {
   color: #9966cb;
 }
 
-.cartTotals a{
+.cartTotals a {
   background-color: #7e57c2;
   border-bottom: 2px solid #b12938;
   color: white;
@@ -213,15 +219,76 @@ p.T {
   background-color: #6a47a8;
 }
 
-/* @media screen and (min-width: 300px) and (max-width: 1200px) {
-  .cartPage{
+@media screen and (max-width: 1145px) {
+  .cartPage {
     flex-direction: column;
+    gap: 3.5rem;
+    padding: 3rem 6rem;
   }
 
-  .left{
+  .left {
     width: 100%;
   }
-  .cartTotals{
+
+  .cartTotals {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 820px) {
+  .cartPage {
+    padding: 3rem 5rem;
+  }
+
+  .cartActionDiv {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .cartActions {
+    width: 100%;
+    display: flex;
+  }
+
+  .cartActions input {
     width: 70%;
   }
-} */
+
+  .cartActions button {
+    width: 30%;
+  }
+
+  .filledActionButtons {
+    justify-content: space-between;
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 720px) {
+  .cartTableContainer {
+    overflow-x: scroll;
+  }
+
+  td.quantity {
+    display: flex;
+    align-items: center;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .cartPage {
+    padding: 3rem 4rem;
+  }
+
+  .cartActions input {
+    width: 60%;
+  }
+
+  .cartActions button {
+    width: 40%;
+  }
+
+  .filledActionButtons a {
+    text-align: center;
+  }
+}
