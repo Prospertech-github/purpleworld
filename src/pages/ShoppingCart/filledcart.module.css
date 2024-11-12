@@ -51,6 +51,11 @@
   color: #000000;
 }
 
+.cartTable tbody td.productDetails span:nth-child(1){
+  font-size: 1.6rem;
+  cursor: pointer;
+}
+
 .cartTable tbody td.price {
   font-size: 14px;
   font-weight: 600;

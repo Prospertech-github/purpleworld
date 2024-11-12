@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 const FilledCart = () => {
   const [couponCode, setCouponCode] = useState("");
-  const {cartItems, setCartItems} = useContext(CartContext);
+  const { cartItems, setCartItems } = useContext(CartContext);
 
   const handleQuantityChange = (id, newQuantity) => {
     const updatedItems = cartItems.map((item) => {
@@ -13,7 +13,7 @@ const FilledCart = () => {
         const updatedSubtotal = item.price * newQuantity;
         return { ...item, quantity: newQuantity, subtotal: updatedSubtotal };
       }
-      return item
+      return item;
     });
     setCartItems(() => updatedItems);
   };
@@ -22,12 +22,20 @@ const FilledCart = () => {
     console.log("Coupon applied:", couponCode);
   };
 
-  const clearCart = () =>{
-    setCartItems([])
-    localStorage.removeItem('cartItems');
+  const clearCart = () => {
+    setCartItems([]);
+    localStorage.removeItem("cartItems");
+  };
+  const subtotal = cartItems.reduce(
+    (acc, item) => acc + Number(item.subtotal),
+    0
+  );
+  const removeItem = (item) =>{
+    console.log(item.id);
+    const updatedCart = cartItems.filter((cartItem) => cartItem.id != item.id)
+    setCartItems(updatedCart)
+    localStorage.setItem('cartItems', JSON.stringify(updatedCart));
   }
-  const subtotal = cartItems.reduce((acc, item) => acc + Number(item.subtotal), 0);
-
   return (
     <div className={filled.cartPage}>
       <div className={filled.left}>
@@ -41,13 +49,15 @@ const FilledCart = () => {
             </tr>
           </thead>
           <tbody>
-            {cartItems && cartItems.map((item) => (
-              <CartItem
-                key={item.id}
-                item={item}
-                handleQuantityChange={handleQuantityChange}
-              />
-            ))}
+            {cartItems &&
+              cartItems.map((item) => (
+                <CartItem
+                  key={item.id}
+                  item={item}
+                  handleQuantityChange={handleQuantityChange}
+                  removeItem={removeItem}
+                />
+              ))}
           </tbody>
         </table>
 
@@ -62,24 +72,30 @@ const FilledCart = () => {
             />
             <button onClick={handleApplyCoupon}>APPLY COUPON</button>
           </div>
-            <button className={filled.clearCart} onClick={clearCart}>CLEAR CART</button>
-          <Link to='/shop' className={filled.update}>BACK TO SHOP</Link>
+          <button className={filled.clearCart} onClick={clearCart}>
+            CLEAR CART
+          </button>
+          <Link to="/shop" className={filled.update}>
+            BACK TO SHOP
+          </Link>
         </div>
       </div>
 
       {/* Cart Totals */}
-      <CartTotals
-        total={subtotal}
-      />
+      <CartTotals total={subtotal} />
     </div>
   );
 };
 
-const CartItem = ({ item, handleQuantityChange }) => {
+const CartItem = ({ item, handleQuantityChange, removeItem }) => {
   return (
     <tr>
       <td className={filled.productDetails}>
-        <span>x</span>
+        <span
+          onClick={() =>removeItem(item)}
+        >
+          x
+        </span>
         <div>
           <img src={item.icon} alt={item.title} width="50" />
           <span>{item.title}</span>
@@ -104,7 +120,7 @@ const CartItem = ({ item, handleQuantityChange }) => {
   );
 };
 
-const CartTotals = ({total}) => {
+const CartTotals = ({ total }) => {
   return (
     <div className={filled.cartTotals}>
       <h3>Cart Totals</h3>
@@ -113,7 +129,7 @@ const CartTotals = ({total}) => {
           Total: <span>₦{Number(total.toFixed(2)).toLocaleString()}</span>
         </p>
       </div>
-      <Link to='/checkout'>PROCEED TO CHECKOUT</Link>
+      <Link to="/checkout">PROCEED TO CHECKOUT</Link>
     </div>
   );
 };
