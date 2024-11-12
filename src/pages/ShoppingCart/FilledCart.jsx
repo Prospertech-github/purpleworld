@@ -4,7 +4,6 @@ import { CartContext } from "../../contexts/CartContext";
 import { Link } from "react-router-dom";
 
 const FilledCart = () => {
-  const [couponCode, setCouponCode] = useState("");
   const { cartItems, setCartItems } = useContext(CartContext);
 
   const handleQuantityChange = (id, newQuantity) => {
@@ -19,7 +18,7 @@ const FilledCart = () => {
   };
 
   const handleApplyCoupon = () => {
-    console.log("Coupon applied:", couponCode);
+    alert("OOPS!! Coupon Not Available Now. Kindly check back later");
   };
 
   const clearCart = () => {
@@ -31,11 +30,11 @@ const FilledCart = () => {
     0
   );
   const removeItem = (item) =>{
-    console.log(item.id);
     const updatedCart = cartItems.filter((cartItem) => cartItem.id != item.id)
     setCartItems(updatedCart)
     localStorage.setItem('cartItems', JSON.stringify(updatedCart));
   }
+  
   return (
     <div className={filled.cartPage}>
       <div className={filled.left}>

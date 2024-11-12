@@ -1,18 +1,3 @@
-export const cartItemsData = [
-    {
-      id: 1,
-      productName: "Pringles Original x12",
-      price: 8500,
-      quantity: 1,
-      imageUrl: pringles,  
-      subtotal: 8500,
-    },
-  ];
-  
-export const cartTotals = {
-    subtotal: 8500,
-    total: 8500,
-  };
 
   export const countries = [
     { code: "NGN", name: "Nigeria" },
@@ -40,22 +25,6 @@ export const cartTotals = {
     "Plateau", "Rivers", "Sokoto", "Taraba", "Yobe", "Zamfara", "FCT"
   ];
   
-  const mockOrderData = {
-    id: "123456",
-    products: [
-      {
-        name: "Pringles Original",
-        quantity: "12 x 1",
-        price: 8500,
-      },
-    ],
-    subtotal: 8500,
-    total: 8500,
-  };
-  
-  export default mockOrderData;
-  
-
   export const fakeData = {
     orderInfo: [
       { label: 'Order number', value: '16105' },
