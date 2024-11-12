@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 
 const FilledCart = () => {
   const { cartItems, setCartItems } = useContext(CartContext);
+  const [couponCode, setCouponCode] = useState("");
 
   const handleQuantityChange = (id, newQuantity) => {
     const updatedItems = cartItems.map((item) => {
@@ -86,7 +87,6 @@ const FilledCart = () => {
       </div>
 
       {/* Cart Totals */}
-      <CartTotals total={subtotal} />
       <CartTotals total={subtotal} />
     </div>
   );
