@@ -69,20 +69,14 @@ const Checkout = () => {
       "phone",
       "email",
     ];
-    console.log(requiredFields.every((field) => data[field]));
     return requiredFields.every((field) => data[field]);
   };
-
-  // const handlePaymentChange = (e) => {
-  //   setPaymentMethod(e.target.value);
-  // };
 
   const handleOrder = (e) => {
     e.preventDefault();
     const dataToValidate = formData.shipToDifferentAddress
       ? shippingData
       : formData;
-    console.log(typeof paystackKey);
 
     if (validateForm(dataToValidate)) {
       const paystack = new PaystackPop();
@@ -110,7 +104,6 @@ const Checkout = () => {
     (acc, item) => acc + Number(item.subtotal),
     0
   );
-  const paystackKey = import.meta.env.VITE_PAYSTACK_PUBLIC_KEY;
 
   return (
     <main>

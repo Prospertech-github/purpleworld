@@ -4,7 +4,6 @@ import { CartContext } from "../../contexts/CartContext";
 import { Link } from "react-router-dom";
 
 const FilledCart = () => {
-  const [couponCode, setCouponCode] = useState("");
   const { cartItems, setCartItems } = useContext(CartContext);
 
   const handleQuantityChange = (id, newQuantity) => {
@@ -19,7 +18,7 @@ const FilledCart = () => {
   };
 
   const handleApplyCoupon = () => {
-    console.log("Coupon applied:", couponCode);
+    alert("OOPS!! Coupon Not Available Now. Kindly check back later");
   };
 
   const clearCart = () => {
@@ -30,7 +29,12 @@ const FilledCart = () => {
     (acc, item) => acc + Number(item.subtotal),
     0
   );
-
+  const removeItem = (item) =>{
+    const updatedCart = cartItems.filter((cartItem) => cartItem.id != item.id)
+    setCartItems(updatedCart)
+    localStorage.setItem('cartItems', JSON.stringify(updatedCart));
+  }
+  
   return (
     <div className={filled.cartPage}>
       <div className={filled.left}>
@@ -51,6 +55,7 @@ const FilledCart = () => {
                   key={item.id}
                   item={item}
                   handleQuantityChange={handleQuantityChange}
+                  removeItem={removeItem}
                 />
               ))}
           </tbody>
@@ -82,15 +87,20 @@ const FilledCart = () => {
 
       {/* Cart Totals */}
       <CartTotals total={subtotal} />
+      <CartTotals total={subtotal} />
     </div>
   );
 };
 
-const CartItem = ({ item, handleQuantityChange }) => {
+const CartItem = ({ item, handleQuantityChange, removeItem }) => {
   return (
     <tr>
       <td className={filled.productDetails}>
-        <span>x</span>
+        <span
+          onClick={() =>removeItem(item)}
+        >
+          x
+        </span>
         <div>
           <img src={item.icon} alt={item.title} width="50" />
           <span>{item.title}</span>
