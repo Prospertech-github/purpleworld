@@ -68,8 +68,6 @@ const FilledCart = () => {
             <input
               type="text"
               placeholder="Coupon code"
-              value={couponCode}
-              onChange={(e) => setCouponCode(e.target.value)}
             />
             <button onClick={handleApplyCoupon}>APPLY COUPON</button>
           </div>
@@ -86,7 +84,6 @@ const FilledCart = () => {
       </div>
 
       {/* Cart Totals */}
-      <CartTotals total={subtotal} />
       <CartTotals total={subtotal} />
     </div>
   );
