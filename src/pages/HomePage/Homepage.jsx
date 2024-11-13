@@ -14,14 +14,14 @@ export default function Homepage() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/v1/products?category=67142bc188bcdf75ae067119&limit=5")
+      .get("https://pw-be-1.onrender.com/api/v1/products?category=67142bc188bcdf75ae067119&limit=5")
       .then((response) => {
         setNewProducts(response.data.data.products);
       });
   }, []);
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/v1/products?category=67142bd488bcdf75ae06711a&limit=5")
+      .get("https://pw-be-1.onrender.com/api/v1/products?category=67142bd488bcdf75ae06711a&limit=5")
       .then((response) => {
         setPopularProducts(response.data.data.products);
       });
