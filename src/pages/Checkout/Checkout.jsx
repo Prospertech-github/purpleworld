@@ -94,6 +94,7 @@ const Checkout = () => {
           alert("OOPS 😔!! Transaction Canceled");
         },
       });
+      
     } else {
       alert("Please fill out all required fields.");
     }
