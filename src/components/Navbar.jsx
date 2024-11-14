@@ -9,11 +9,13 @@ import { CartContext } from "../contexts/CartContext";
 import { AuthContext } from "../contexts/AuthProvider";
 
 export default function Navbar() {
+  // Various state variables to manage data for the Navbar component and its children components
   const [user, setUser] = useState();
   const [mobile, setMobile] = useState(false);
   const { cartItems } = useContext(CartContext);
   const {isAuthenticated} = useContext(AuthContext)
 
+  // Making use of the useEffect React hook to fetch logged In or Registered users first name on initial rendering of the Navbar 
   useEffect(() => {
     if (localStorage.getItem("registeredUsers")) {
       const userDetails = JSON.parse(localStorage.getItem("registeredUsers"));
