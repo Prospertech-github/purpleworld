@@ -1,7 +1,8 @@
 import React, { useContext, useState } from "react";
 import filled from "./filledcart.module.css";
 import { CartContext } from "../../contexts/CartContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const FilledCart = () => {
   const { cartItems, setCartItems } = useContext(CartContext);
@@ -124,6 +125,24 @@ const CartItem = ({ item, handleQuantityChange, removeItem }) => {
 };
 
 const CartTotals = ({ total }) => {
+
+  const {setCartReference} = useContext(CartContext);
+
+  function generateReference() {
+    axios.get('http://localhost:8080/api/v1/orders/ref')
+        .then(res => {
+            const ref = res.data.data;
+            setCartReference(ref.reference); 
+            console.log(ref.reference); 
+            navigate('/checkout'); 
+        })
+        .catch(error => {
+            console.error("Error fetching reference:", error);
+        });
+  }
+
+  const navigate = useNavigate()
+
   return (
     <div className={filled.cartTotals}>
       <h3>Cart Totals</h3>
@@ -132,7 +151,7 @@ const CartTotals = ({ total }) => {
           Total: <span>₦{Number(total.toFixed(2)).toLocaleString()}</span>
         </p>
       </div>
-      <Link to="/checkout">PROCEED TO CHECKOUT</Link>
+      <button to="/checkout" onClick={generateReference}>PROCEED TO CHECKOUT</button>
     </div>
   );
 };

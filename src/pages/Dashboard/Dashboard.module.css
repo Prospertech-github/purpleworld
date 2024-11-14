@@ -57,9 +57,14 @@
     transition: background-color 0.3s ease;
   }
 
-  a {
+  a, .dashboardBtn{
     text-decoration: none;
     color: inherit;
+  }
+  .dashboardBtn{
+    font-size: 1.8rem;
+    border: none;
+    background: inherit;
   }
   
   li:hover {
