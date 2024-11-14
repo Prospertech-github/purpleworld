@@ -8,8 +8,15 @@ import checkout from "./checkout.module.css";
 import design from "../../assets/design.png";
 import { CartContext } from "../../contexts/CartContext";
 import PaystackPop from "@paystack/inline-js";
+import axios from "axios";
+import { AuthContext } from "../../contexts/AuthProvider";
 
 const Checkout = () => {
+  const [accessToken, setAccessToken] = useState('');
+  const {isAuthenticated} = useContext(AuthContext)
+  const { cartItems, setCartItems } = useContext(CartContext);
+  const {cartReference} = useContext(CartContext)
+  const navigate = useNavigate();
 
   useEffect(()=>{
     if(cartItems.length < 1){
@@ -17,6 +24,14 @@ const Checkout = () => {
       navigate('/shop')
     }
   },[])
+
+  useEffect(()=>{
+    if(localStorage.getItem("registeredUsers") || localStorage.getItem("loggedInUsers")){
+      const userdetails = JSON.parse(localStorage.getItem('loggedInUsers'));
+      setAccessToken(userdetails.accessToken)
+    }
+  },[isAuthenticated])
+
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -46,10 +61,6 @@ const Checkout = () => {
     phone: "",
     orderNotes: "",
   });
-
-  const [orderData, setOrderData] = useState(null);
-  const navigate = useNavigate();
-  // const [paymentMethod, setPaymentMethod] = useState("bank");
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -87,6 +98,30 @@ const Checkout = () => {
       ? shippingData
       : formData;
 
+      function generateOrder() {
+        const headers = isAuthenticated
+        ? { Authorization: `Bearer ${accessToken}` }
+        : {};
+
+        axios.post(
+          'http://localhost:8080/api/v1/orders/new',
+          {
+            reference: cartReference,
+            items: cartItems.map(item => ({
+              _id: item.id,
+              title: item.title,
+              price: item.price,
+              quantity: item.quantity,
+              subtotal: item.subtotal,
+            })),
+            amount: cartTotal,
+          },
+          { headers }
+        )
+        .then(response => console.log(response.data))
+        .catch(error => console.error('Error:', error));
+      }
+
     if (validateForm(dataToValidate)) {
       const paystack = new PaystackPop();
       paystack.newTransaction({
@@ -98,6 +133,7 @@ const Checkout = () => {
         onSuccess(transaction) {
           let message = `Payment Completed 🥰! Transaction ID: ${transaction.reference}`;
           alert(message);
+          generateOrder()
           localStorage.removeItem("cartItems");
           setCartItems([]);
           navigate('/shop')
@@ -113,7 +149,6 @@ const Checkout = () => {
     }
   };
 
-  const { cartItems, setCartItems } = useContext(CartContext);
   const cartTotal = cartItems.reduce(
     (acc, item) => acc + Number(item.subtotal),
     0
@@ -447,17 +482,6 @@ const Checkout = () => {
                     </p>
                   </div>
                 </div>
-              </div>
-
-              <div className={checkout.paymentMethods}>
-                {/* <label>
-                <input
-                  type="radio"
-                  name="paymentMethod"
-                  value="cash"
-                />
-                Cash on delivery
-              </label> */}
               </div>
 
               <p className={checkout.privacyNotice}>

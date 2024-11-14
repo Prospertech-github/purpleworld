@@ -41,15 +41,15 @@ export default function Dashboard() {
       <main className={styles.dasboardContainer}>
       <div className={styles.sidebar}>
       <h3>My ACCOUNT</h3>
-      <ul>
+      <ul >
         <li>
-          <button>Orders</button>
+          <button className={styles.dashboardBtn}>Orders</button>
         </li>
         <li>
-          <button>Account details</button>
+          <button className={styles.dashboardBtn}>Account details</button>
         </li>
         <li>
-          <button onClick={handleLogOut}>Logout</button>
+          <button onClick={handleLogOut} className={styles.dashboardBtn}>Logout</button>
         </li>
       </ul>
     </div>
