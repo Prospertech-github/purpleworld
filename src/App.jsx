@@ -13,6 +13,7 @@ import CartProvider from "./contexts/CartProvider";
 import Checkout from "./pages/Checkout/Checkout";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import PrivateRoutes from "./components/PrivateRoutes";
+import Errorpage from "./pages/ErrorPage/Errorpage";
 
 function App() {
   return (
@@ -42,7 +43,9 @@ function App() {
               </PrivateRoutes>
             }
           />
+        <Route path="/*" element={<Errorpage />}/>
         </Routes>
+
       </BrowserRouter>
     </CartProvider>
   );
