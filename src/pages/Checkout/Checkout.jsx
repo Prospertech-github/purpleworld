@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import Navbar from "../../components/Navbar";
 import Process from "../../components/Process/Process";
 import Footer from "../../components/Footer";
-import checkout from "./Checkout.module.css";
+import checkout from "./checkout.module.css";
 import design from "../../assets/design.png";
 import { CartContext } from "../../contexts/CartContext";
 import PaystackPop from "@paystack/inline-js";
@@ -94,7 +94,7 @@ const Checkout = () => {
           alert("OOPS 😔!! Transaction Canceled");
         },
       });
-      
+
     } else {
       alert("Please fill out all required fields.");
     }
