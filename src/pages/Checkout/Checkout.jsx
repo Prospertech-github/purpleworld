@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { countries, Housing, statesInNigeria } from "../../components/mock";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../../components/Navbar";
 import Process from "../../components/Process/Process";
 import Footer from "../../components/Footer";
@@ -40,6 +40,7 @@ const Checkout = () => {
   });
 
   const [orderData, setOrderData] = useState(null);
+  const navigate = useNavigate();
   // const [paymentMethod, setPaymentMethod] = useState("bank");
 
   const handleChange = (e) => {
@@ -89,18 +90,22 @@ const Checkout = () => {
         onSuccess(transaction) {
           let message = `Payment Completed 🥰! Transaction ID: ${transaction.reference}`;
           alert(message);
+          localStorage.removeItem("cartItems");
+          setCartItems([]);
+          navigate('/shop')
         },
         onCancel() {
           alert("OOPS 😔!! Transaction Canceled");
         },
       });
 
+
     } else {
       alert("Please fill out all required fields.");
     }
   };
 
-  const { cartItems } = useContext(CartContext);
+  const { cartItems, setCartItems } = useContext(CartContext);
   const cartTotal = cartItems.reduce(
     (acc, item) => acc + Number(item.subtotal),
     0
