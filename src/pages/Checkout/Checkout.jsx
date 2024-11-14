@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { countries, Housing, statesInNigeria } from "../../components/mock";
 import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../../components/Navbar";
@@ -10,6 +10,14 @@ import { CartContext } from "../../contexts/CartContext";
 import PaystackPop from "@paystack/inline-js";
 
 const Checkout = () => {
+
+  useEffect(()=>{
+    if(cartItems.length < 1){
+      alert('OOPS!! Your Cart Is Empty. Kindly head over to Shop before proceeding to Checkout')
+      navigate('/shop')
+    }
+  },[])
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",

@@ -7,6 +7,7 @@ import Newsletter from "../../components/Newsletter";
 import styles from "./Homepage.module.css";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import LoadingComponent from "../../components/LoadingComponent";
 
 export default function Homepage() {
   const [newProducts, setNewProducts] = useState(null);
@@ -39,7 +40,7 @@ export default function Homepage() {
       </section>
 
       <SalesComponent heading="New Arrivals">
-        {newProducts &&
+        {newProducts ?
           newProducts.map((product) => {
             return(
               <Link to={`/shop/${product.id}`} key={product.id}>
@@ -53,11 +54,11 @@ export default function Homepage() {
               
               </Link>
             )
-          })}
+          }) : <LoadingComponent />}
       </SalesComponent>
 
       <SalesComponent heading="Popular">
-      {popularProducts &&
+      {popularProducts ?
           popularProducts.map((product) => {
             return(
               <Link to={`/shop/${product.id}`} key={product.id}>
@@ -70,7 +71,7 @@ export default function Homepage() {
                 />              
               </Link>
             )
-          })}
+          }) : <LoadingComponent />}
       </SalesComponent>
       <Newsletter />
       <Footer />
