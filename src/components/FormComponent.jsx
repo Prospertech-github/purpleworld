@@ -52,7 +52,7 @@ export default function FormComponent() {
   function handleLogin(e) {
     // prevents the page from reloading as it's the default behaviour of the submit button 
     e.preventDefault();
-
+    
     // POST request using axios to send a Login request to the login endpoint 
     axios
       .post("https://pw-be-1.onrender.com/api/v1/auth/login", {
