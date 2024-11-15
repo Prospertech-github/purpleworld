@@ -1,17 +1,17 @@
 
-  export const countries = [
-    { code: "NGN", name: "Nigeria" },
-    { code: "US", name: "United States" },
-    { code: "CA", name: "Canada" },
-    { code: "GB", name: "United Kingdom" },
-    { code: "AU", name: "Australia" },
-    { code: "DE", name: "Germany" },
-    { code: "FR", name: "France" },
-    { code: "IN", name: "India" },
-    { code: "JP", name: "Japan" },
-    { code: "BR", name: "Brazil" },
-    { code: "ZA", name: "South Africa" },
-  ];
+export const countries = [
+  { code: "NGN", name: "Nigeria" },
+  { code: "US", name: "United States" },
+  { code: "CA", name: "Canada" },
+  { code: "GB", name: "United Kingdom" },
+  { code: "AU", name: "Australia" },
+  { code: "DE", name: "Germany" },
+  { code: "FR", name: "France" },
+  { code: "IN", name: "India" },
+  { code: "JP", name: "Japan" },
+  { code: "BR", name: "Brazil" },
+  { code: "ZA", name: "South Africa" },
+];
 
   export const Housing = [
     "Apartment", "Suite", "Unit" ,
@@ -23,6 +23,10 @@
     "Jigawa", "Kaduna", "Kano", "Katsina", "Kebbi", "Kogi", "Kwara", 
     "Lagos", "Nasarawa", "Niger", "Ogun", "Ondo", "Osun", "Oyo", 
     "Plateau", "Rivers", "Sokoto", "Taraba", "Yobe", "Zamfara", "FCT"
+  ];
+  
+  export const statesInAustralia = [
+    "New South Wales", "Victoria", "Queensland", "Western Australia", "South Australia", "Tasmania"
   ];
   
   export const fakeData = {
