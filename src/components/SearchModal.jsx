@@ -12,11 +12,10 @@ export default function SearchModal() {
 
   const filteredData = Array.isArray(products)
     ? products.filter((item) => {
-        // Ensure item and item.title are defined before calling string methods
         if (item && item.title) {
           return item.title.toLowerCase().includes(searchTerm.toLowerCase());
         }
-        return false; // Exclude items without a title
+        return false;
       })
     : [];
 
@@ -57,7 +56,14 @@ export default function SearchModal() {
             {filteredData.length > 0 ? (
               <ul>
                 {filteredData.map((item, index) => (
-                  <Link to={`/shop/${item.id}`} key={index}>{item.title}</Link> // Use the `title` property or any other appropriate field
+                  <Link
+                    to={`/shop/${item.id}`}
+                    key={index}
+                    onClick={() => setShowModal(false)}
+                  >
+                    {" "}
+                    {item.title}{" "}
+                  </Link>
                 ))}
               </ul>
             ) : (
