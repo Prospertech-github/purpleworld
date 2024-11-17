@@ -7,6 +7,7 @@ import styles from "./Navbar.module.css";
 import { Link, NavLink } from "react-router-dom";
 import { CartContext } from "../contexts/CartContext";
 import { AuthContext } from "../contexts/AuthProvider";
+import SearchModal from "./SearchModal";
 
 export default function Navbar() {
   // Various state variables to manage data for the Navbar component and its children components
@@ -45,7 +46,7 @@ export default function Navbar() {
           )}
         </div>
         <div className={styles.searchbarCtn}>
-          <input type="search" />
+          <SearchModal />
         </div>
         <div className={mobile ? `${styles.cartDiv} ${styles.mobile}` : `${styles.cartDiv}`}>
           {isAuthenticated ? (
