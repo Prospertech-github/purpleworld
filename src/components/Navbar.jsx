@@ -22,6 +22,7 @@ export default function Navbar() {
       const userDetails = JSON.parse(localStorage.getItem("registeredUsers"));
       const { fullName } = userDetails.user;
       setUser(fullName.split(" ")[0]);
+    
     }
 
     if (localStorage.getItem("loggedInUsers")) {
