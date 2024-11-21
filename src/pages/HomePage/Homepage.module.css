@@ -3,7 +3,7 @@
     padding: 5rem 10rem;
     height: 90vh;
     max-height: 1000px;
-    background-color: var(--purple);
+    background: url('../../assets/websize.png') center center/cover no-repeat;
     z-index: 100;
 }
 .hero::after{
@@ -21,6 +21,7 @@
 .hero > div{
     height: 100%;
     color: #fff;
+    /* color: var(--purple); */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -31,14 +32,17 @@
 .hero > div > h1{
     font-size: 6rem;
     color: #ddd;
+    /* color: var(--purple); */
     z-index: 200;
 }
 .hero > div > h4{
-    font-size: 1.8rem;
+    font-size: 2.5rem;
     font-weight: 600;
     font-style: italic;
     color: #ddd;
+    color: var(--purple);
     z-index: 200;
+    margin-top: -2rem;
 }
 .hero > div > a{
     color: #fff;
@@ -50,6 +54,7 @@
     font-weight: 600;
     cursor: pointer;
     z-index: 200;
+    margin-top: 1rem;
 }
 
 /* NEW ARRIVALS SECTION */
